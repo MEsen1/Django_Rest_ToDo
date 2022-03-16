@@ -8,8 +8,8 @@ class Todo(models.Model):
     description = models.TextField()
     
     TITLE = {
-        ('H','High')
-        ('M','Medium')
+        ('H','High'),
+        ('M','Medium'),
         ('L','Low')
         
     }
