@@ -40,3 +40,59 @@ def todoListCreate(request):
         serializer = TodoSerializer(query,many=True)
         
     return Response(serializer.data)
+
+#*single object
+@api_view(['GET','PUT','DELETE'])
+def todo_detail(request,pk):
+        
+    if request.method == 'GET':
+        query = Todo.objects.all()
+        serializer = TodoSerializer(query, many = True)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        query = Todo.objects.get(id=pk)
+        #*single res no many
+        serializer = TodoSerializer(instance=query,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)    
+    elif request.method == 'DELETE':
+        query= Todo.objects.get(id=pk)
+        query.delete()
+        return Response('Deleted')
+
+# #*update view
+# @api_view(['PUT'])
+# def todo_update(request,pk):
+    
+#     query = Todo.objects.get(id=pk)
+#     #*single res no many
+#     serializer = TodoSerializer(instance=query,data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+        
+#     return Response(serializer.data)
+
+# #*get and put 
+# @api_view(['GET','PUT','DELETE'])
+# def todo_update(request,pk):
+    
+#     if request.method == 'GET':
+#         query = Todo.objects.all()
+#         serializer = TodoSerializer(query, many = True)
+#         return Response(serializer.data)
+#     elif request.method == 'PUT':
+#         query = Todo.objects.get(id=pk)
+#         #*single res no many
+#         serializer = TodoSerializer(instance=query,data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#         return Response(serializer.data)    
+#     elif request.method == 'DELETE':
+#         query= Todo.objects.get(id=pk)
+#         query.delete()
+#         return Response('Deleted')
+
+    
+    
+    
